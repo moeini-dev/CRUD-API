@@ -52,8 +52,8 @@ module.exports = {
         pool.query(
             `update registeration set firstName=?, lastName=?, gender=?, email=?, password=?, number=? where id=?`,
             [
-                data.first_name,
-                data.last_name,
+                data.firstName,
+                data.lastName,
                 data.gender,
                 data.email,
                 data.password,
@@ -64,6 +64,7 @@ module.exports = {
                 if(error) {
                     return callback(error);
                 }
+                console.log(results);
                 return callback(null, results);
             }
         );
