@@ -1,4 +1,5 @@
 const {verify} = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = {
     checkToken: (req, res, next) => {
@@ -6,7 +7,8 @@ module.exports = {
         if(token) {
             token = token.slice(7);
             // 'qwe1234' is the secret key that should not be hard coded! Using .env file and environment variables are recommended
-            verify(token, 'qwe1234', (err, decoded) => {
+            const secretKey = process.env.SC_KEY;
+            verify(token, secretKey, (err, decoded) => {
                 if(err) {
                     res.json({
                         success: 0,
