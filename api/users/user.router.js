@@ -1,20 +1,15 @@
-const {
-    createUser, 
-    getUsers, 
-    getUserByUserId, 
-    updateUsers, 
-    deleteUsers,
-    login
-} = require('./user.controller');
-
-const router = require('express').Router()
 const {checkToken} = require('../../auth/token_validation');
 
-router.post('/', checkToken, createUser);
-router.get('/', checkToken, getUsers);
-router.get('/:id', checkToken, getUserByUserId);
-router.patch('/', checkToken, updateUsers);  // patch method equals to update
-router.delete('/', checkToken, deleteUsers);
-router.post('/login', login);
+const router = require('express').Router()
+const db = require('../../models');
+const controller = require('./user.controller');
 
-module.exports = router; 
+
+router.get('/', checkToken, controller.getUsers);
+router.get('/:id', checkToken, controller.getUserByUserId);
+router.post('/', checkToken, controller.createUser);
+router.patch('/', checkToken, controller.updateUsers);
+router.delete('/', checkToken, controller.deleteUsers);
+router.post('/login', controller.login);
+
+module.exports = router;
